@@ -17,7 +17,7 @@ public class SignupTest {
     @Test
     public void shouldAcceptRequestIfEmailValid() {
         Optional<Error> result = new Signup(new DoNothingStorage()).process(new Email("malformed@email.com"));
-        assertTrue(result.isEmpty());
+        assertTrue(!result.isPresent());
     }
 
     @Test
@@ -25,7 +25,7 @@ public class SignupTest {
         FakeEmailStorage fakeEmailStorage = new FakeEmailStorage();
         Optional<Error> result = new Signup(fakeEmailStorage).process(new Email("malformed@email.com"));
 
-        assertTrue(result.isEmpty());
+        assertTrue(!result.isPresent());
         assertTrue(fakeEmailStorage.wasInvokedWith("malformed@email.com"));
     }
 
